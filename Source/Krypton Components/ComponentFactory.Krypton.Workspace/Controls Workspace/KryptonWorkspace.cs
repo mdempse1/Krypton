@@ -3508,15 +3508,18 @@ namespace ComponentFactory.Krypton.Workspace
             // Workspace item before the separator (to the left or above)
             KryptonWorkspaceSequence beforeSequence = (KryptonWorkspaceSequence)after.WorkspaceParent;
 
-            // Previous items might be invisible and so search till we find the visible one we expect
             before = null;
-            for (int i = beforeSequence.Children.IndexOf(after) - 1; i >= 0; i--)
+            if (beforeSequence != null)
             {
-                IWorkspaceItem item = beforeSequence.Children[i] as IWorkspaceItem;
-                if ((item != null) && item.WorkspaceVisible)
+                // Previous items might be invisible and so search till we find the visible one we 
+                for (int i = beforeSequence.Children.IndexOf(after) - 1; i >= 0; i--)
                 {
-                    before = item;
-                    break;
+                    IWorkspaceItem item = beforeSequence.Children[i] as IWorkspaceItem;
+                    if ((item != null) && item.WorkspaceVisible)
+                    {
+                        before = item;
+                        break;
+                    }
                 }
             }
         }
